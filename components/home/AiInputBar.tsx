@@ -8,19 +8,22 @@ import {
 } from 'react-native';
 import { Sparkles, ArrowUp } from 'lucide-react-native';
 import { colors, spacing, radius, shadow } from '@/constants/theme';
+import { supabase } from '@/lib/supabase';
 
 interface AiInputBarProps {
   onSubmit: (text: string) => void;
+  sessionId?: string;
 }
 
-export function AiInputBar({ onSubmit }: AiInputBarProps) {
+export function AiInputBar({ onSubmit, sessionId = 'anon' }: AiInputBarProps) {
   const [value, setValue] = useState('');
 
-  const handleSubmit = () => {
-    if (value.trim()) {
-      onSubmit(value.trim());
-      setValue('');
-    }
+  const handleSubmit = async () => {
+    const query = value.trim();
+    if (!query) return;
+    setValue('');
+    onSubmit(query);
+    await supabase.from('user_searches').insert({ query, session_id: sessionId });
   };
 
   return (
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
   wrapper: {
     marginHorizontal: spacing.md,
     marginTop: -24,
+    zIndex: 10,
   },
   container: {
     flexDirection: 'row',

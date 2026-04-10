@@ -14,8 +14,9 @@ export function HeroSection() {
         <Image
           source={{ uri: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800' }}
           style={styles.heroImage}
+          pointerEvents="none"
         />
-        <View style={styles.overlay} />
+        <View style={styles.overlay} pointerEvents="none" />
         <View style={styles.content}>
           <Text style={styles.badge}>AI POWERED</Text>
           <Text style={styles.title}>Your personal{'\n'}cooking companion</Text>

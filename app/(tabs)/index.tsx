@@ -53,7 +53,7 @@ export default function HomeScreen() {
         )}
 
         <QuickPrompts onSelect={handlePrompt} />
-        <CategoryCards />
+        <CategoryCards onSelect={handlePrompt} />
         <HowItWorks />
 
         <View style={styles.bottomPad} />
